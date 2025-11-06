@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.eggs/
+*.pyo
+*.pyd
+*.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+.ipynb_checkpoints/
+.mypy_cache/
+.pytype/
+.cache/
+*.log
+
+# Jupyter
+.profile_default/
+.ipython/
+
+# Data (keep placeholders only)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# OS / Editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
