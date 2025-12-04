@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.30%2B-FF4B4B)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
+[![Live Demo](https://img.shields.io/badge/Demo-Click%20Here-blueviolet)](https://trader-behavior-insights-dgmypmic4s3ccltjwmzy9m.streamlit.app/)
 
 **A professional-grade Quantitative Intelligence Platform analyzing the relationship between Bitcoin Market Sentiment and Trader Performance.**
 
