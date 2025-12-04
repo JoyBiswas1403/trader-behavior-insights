@@ -21,10 +21,41 @@ class Paths:
         )
 
 
+import gdown
+from pathlib import Path
+
+# Google Drive file IDs
+FILE_IDS = {
+    "historical": "1IAfLZwu6rJzyWKgBToqwSmmVYU6VbjVs",
+    "fear_greed": "1PgQC0tO8XN-wqkNyghWc_-mnrYv_nhSf",
+}
+
+def ensure_data_exists(raw_dir: str) -> None:
+    """Check if data exists, if not, download it."""
+    raw_path = Path(raw_dir)
+    raw_path.mkdir(parents=True, exist_ok=True)
+    
+    # Define expected paths
+    trades_path = raw_path / "hyperliquid_trades.csv"
+    fng_path = raw_path / "fear_greed.csv"
+    
+    if not trades_path.exists():
+        print(f"Downloading trades data to {trades_path}...")
+        url = f"https://drive.google.com/uc?id={FILE_IDS['historical']}"
+        gdown.download(url, str(trades_path), quiet=False)
+        
+    if not fng_path.exists():
+        print(f"Downloading sentiment data to {fng_path}...")
+        url = f"https://drive.google.com/uc?id={FILE_IDS['fear_greed']}"
+        gdown.download(url, str(fng_path), quiet=False)
+
 def load_fear_greed(path: str) -> pd.DataFrame:
     """Load BTC Fear/Greed index. Expects columns like ['Date', 'Classification'].
     Parses Date to datetime (UTC, date-only).
     """
+    # Ensure data exists before loading
+    ensure_data_exists(os.path.dirname(path))
+    
     df = pd.read_csv(path)
     # Normalize columns
     cols = {c: c.strip().lower() for c in df.columns}
@@ -42,6 +73,9 @@ def load_trades(path: str) -> pd.DataFrame:
     """Load Hyperliquid historical trader executions.
     Attempts CSV first; if that fails, tries Parquet.
     """
+    # Ensure data exists before loading
+    ensure_data_exists(os.path.dirname(path))
+
     try:
         df = pd.read_csv(path)
     except Exception:
